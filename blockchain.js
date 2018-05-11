@@ -2,26 +2,34 @@ const Block = require("./block")
 
 class Blockchain {
   constructor () {
-    this.chain = [Block.genesis()]
+    this.chain = [this.createGenesisBlock()]
+    this.difficulty = 0
   }
 
-  addBlock (data) {
-    const block = Block.mineBlock(this.chain[this.chain.length-1], data)
-    this.chain.push(block)
+  createGenesisBlock () {
+    return new Block(0, "11/05/2018", "Genesis Block", "f1r57-h45h")
+  }
 
-    return block
+  getLatestBlock () {
+    return this.chain[this.chain.length - 1]
+  }
+
+  addBlock (newBlock) {
+    newBlock.previousHash = this.getLatestBlock().hash
+    newBlock.mineBlock(this.difficulty)
+    this.chain.push(newBlock)
   }
 
   isChainValid () {
-    for (let i=1; i<this.chain.length; i++) {
+    for (let i = 1; i < this.chain.length; i++) {
       const currentBlock = this.chain[i]
       const previousBlock = this.chain[i-1]
 
-      if (currentBlock.hash !== Block.hash(currentBlock.timestamp, currentBlock.lastHash, currentBlock.data)) {
+      if (currentBlock.hash !== Block.calculateHash()) {
         return false
       }
 
-      if (currentBlock.lastHash !== previousBlock.hash) {
+      if (currentBlock.previousHash !== previousBlock.hash) {
         return false
       }
     }

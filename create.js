@@ -1,45 +1,10 @@
+const Block = require("./block")
 const Blockchain = require("./blockchain")
 
-const exchange = new Blockchain()
+const myCoin = new Blockchain()
 
-exchange.addBlock({
-  amount: 100,
-  debitAccount: "Me",
-  creditAccount: "You"
-})
+console.log("Mining Block 1...")
+myCoin.addBlock(new Block(1, "14/05/2018", { amount: 100 }))
 
-console.log("New block has been added")
-console.log(exchange.chain[exchange.chain.length-1].toString())
-
-if (exchange.isChainValid()) {
-  console.log("Blockchain is valid")
-} else {
-  console.log("Blockchain is not valid!")
-}
-
-exchange.addBlock({
-  amount: 150,
-  debitAccount: "Me",
-  creditAccount: "You"
-})
-
-console.log("Another block has been added")
-console.log(exchange.chain[exchange.chain.length-1].toString())
-
-if (exchange.isChainValid()) {
-  console.log("Blockchain is valid")
-} else {
-  console.log("Blockchain is not valid!")
-}
-
-console.log("Data has been changed")
-
-exchange.chain[exchange.chain.length-1].data.amount = 200
-
-console.log(exchange.chain[exchange.chain.length-1].toString())
-
-if (exchange.isChainValid()) {
-  console.log("Blockchain is valid")
-} else {
-  console.log("Blockchain is not valid!")
-}
+console.log("Mining Block 2...")
+myCoin.addBlock(new Block(1, "15/05/2018", { amount: 150 }))
