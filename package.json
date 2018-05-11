@@ -1,0 +1,12 @@
+{
+  "name": "blockchain",
+  "version": "1.0.0",
+  "description": "Simple implementations of a blockchain",
+  "scripts": {
+    "start": "node create.js"
+  },
+  "keywords": [ "blockchain" ],
+  "author": "Santhosh Dasari",
+  "license": "ISC",
+  "dependencies": { "crypto-js": "^3.1.9-1" }
+}
