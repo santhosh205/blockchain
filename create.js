@@ -1,10 +1,17 @@
-const Block = require("./block")
 const Blockchain = require("./blockchain")
+const Transaction = require("./transaction")
 
 const myCoin = new Blockchain()
 
-console.log("Mining Block 1...")
-myCoin.addBlock(new Block(1, "14/05/2018", { amount: 100 }))
+myCoin.createTransaction(new Transaction("Address 1", "Address 2", 100))
+myCoin.createTransaction(new Transaction("Address 2", "Address 1", 150))
 
-console.log("Mining Block 2...")
-myCoin.addBlock(new Block(1, "15/05/2018", { amount: 150 }))
+console.log("Starting mining...")
+myCoin.minePendingTransactions("Address 3")
+
+console.log("My balance at 'Address 3' is ", myCoin.getBalanceOfAddress("Address 3"))
+
+console.log("Starting mining again...")
+myCoin.minePendingTransactions("Address 3")
+
+console.log("My balance at 'Address 3' is ", myCoin.getBalanceOfAddress("Address 3"))
