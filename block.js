@@ -9,17 +9,24 @@ class Block {
   }
 
   toString () {
-    return `
-      Block -
-        Timestamp: ${this.timestamp}
-        Last Hash: ${this.lastHash.substring(0, 10)}...
-        Hash: ${this.hash.substring(0, 10)}...
-        Data: ${this.data}
-    `
+    return "\nBlock -\
+            \nTimestamp: "+this.timestamp.toString()+
+           "\nLast Hash: "+this.lastHash.substring(0, 10)+"...\
+            \nHash: "+this.hash.substring(0, 10)+"...\
+            \nData: "+JSON.stringify(this.data, null, 2)+"\n"
   }
 
   static genesis () {
-    return new this("11th May, 2018", "------------", "-f1r57-h45h-", {})
+    return new this(
+      new Date(2018, 5, 11),
+      "------------",
+      "-f1r57-h45h-",
+      {
+        amount: 0,
+        debitAccount: "None",
+        creditAccount: "None"
+      }
+    )
   }
 
   static mineBlock (lastBlock, data) {
@@ -31,7 +38,7 @@ class Block {
   }
 
   static hash (timestamp, lastHash, data) {
-    return SHA256(`${timestamp}${lastHash}${data}`).toString()
+    return SHA256(timestamp.toString()+lastHash+JSON.stringify(data)).toString()
   }
 }
 
